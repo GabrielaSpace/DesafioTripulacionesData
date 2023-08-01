@@ -7,7 +7,7 @@ WORKDIR /app
 # Copiar todos los archivos de la aplicación al directorio de trabajo en el contenedor
 COPY . .
 
-# Instalar las dependencias de la aplicación (requerimientos.txt si es necesario)
+# Instalar las dependencias de la aplicación 
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Iniciar el servidor Flask
