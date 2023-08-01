@@ -43,3 +43,4 @@ availableSecrets:
       env: API_KEY_OPENAI
     - versionName: projects/795308822384/secrets/API_KEY_OPENWEATHERMAP/versions/latest
       env: API_KEY_OPENWEATHERMAP
+
