@@ -15,7 +15,7 @@
   entrypoint: bash
   args:
     - '-c'
-    - |
+    - >
       gcloud run deploy tripulaciones-data \
         --image=gcr.io/desafio-tripulaciones/tripulaciones-data:latest \
         --region=europe-west1 \
@@ -29,24 +29,12 @@
         --update-env-vars API_KEY_OPENWEATHERMAP=$$API_KEY_OPENWEATHERMAP \
         --update-env-vars FLASK_RUN_PORT=$$FLASK_RUN_PORT \
         --update-env-vars FLASK_RUN_HOST=$$FLASK_RUN_HOST
-  secretEnv: [
-    'PG_USER', 'PG_HOST', 'PG_DATABASE', 'PG_PASSWORD', 'API_KEY_OPENAI', 'API_KEY_OPENWEATHERMAP', 'FLASK_RUN_PORT', 'FLASK_RUN_HOST'
-  ]
-availableSecrets:
-  secretManager:
-    - versionName: projects/795308822384/secrets/PG_USER/versions/latest
-      env: PG_USER
-    - versionName: projects/795308822384/secrets/PG_HOST/versions/latest
-      env: PG_HOST
-    - versionName: projects/795308822384/secrets/PG_DATABASE/versions/latest
-      env: PG_DATABASE
-    - versionName: projects/795308822384/secrets/PG_PASSWORD/versions/latest
-      env: PG_PASSWORD
-    - versionName: projects/795308822384/secrets/API_KEY_OPENAI/versions/latest
-      env: API_KEY_OPENAI
-    - versionName: projects/795308822384/secrets/API_KEY_OPENWEATHERMAP/versions/latest
-      env: API_KEY_OPENWEATHERMAP
-    - versionName: projects/795308822384/secrets/FLASK_RUN_PORT/versions/latest
-      env: FLASK_RUN_PORT
-    - versionName: projects/795308822384/secrets/FLASK_RUN_HOST/versions/latest
-      env: FLASK_RUN_HOST
+  secretEnv:
+    - PG_USER
+    - PG_HOST
+    - PG_DATABASE
+    - PG_PASSWORD
+    - API_KEY_OPENAI
+    - API_KEY_OPENWEATHERMAP
+    - FLASK_RUN_PORT
+    - FLASK_RUN_HOST
