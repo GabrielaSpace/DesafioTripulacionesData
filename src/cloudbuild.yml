@@ -21,6 +21,7 @@ steps:
           --image=gcr.io/desafio-tripulaciones/tripulaciones-data:latest \
           --region=europe-west1 \
           --platform=managed \
+          --port=5001 \
           --allow-unauthenticated \
           --set-env-vars PG_USER=$$PG_USER,PG_HOST=$$PG_HOST,PG_DATABASE=$$PG_DATABASE,PG_PASSWORD=$$PG_PASSWORD,API_KEY_OPENAI=$$API_KEY_OPENAI,API_KEY_OPENWEATHERMAP=$$API_KEY_OPENWEATHERMAP,FLASK_RUN_PORT=$$FLASK_RUN_PORT,FLASK_RUN_HOST=$$FLASK_RUN_HOST
     secretEnv:
