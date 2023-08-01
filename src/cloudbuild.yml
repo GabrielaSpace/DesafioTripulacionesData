@@ -14,8 +14,8 @@
 - name: 'gcr.io/cloud-builders/gcloud'
   entrypoint: bash
   args:
-    - "-c"
-    - "gcloud run deploy tripulaciones-data --image=gcr.io/desafio-tripulaciones/tripulaciones-data:latest --region=europe-west1 --platform=managed --allow-unauthenticated --set-env-vars PG_USER=$$PG_USER,PG_HOST=$$PG_HOST,PG_DATABASE=$$PG_DATABASE,PG_PASSWORD=$$PG_PASSWORD,FLASK_RUN_PORT=5001,FLASK_RUN_HOST=0.0.0.0,API_KEY_OPENAI=$$API_KEY_OPENAI,API_KEY_OPENWEATHERMAP=$$API_KEY_OPENWEATHERMAP"
+    - '-c'
+    - 'gcloud run deploy tripulaciones-data --image=gcr.io/desafio-tripulaciones/tripulaciones-data:latest --region=europe-west1 --platform=managed --allow-unauthenticated --set-env-vars PG_USER=$$PG_USER,PG_HOST=$$PG_HOST,PG_DATABASE=$$PG_DATABASE,PG_PASSWORD=$$PG_PASSWORD,FLASK_RUN_PORT=5001,FLASK_RUN_HOST=0.0.0.0,API_KEY_OPENAI=$$API_KEY_OPENAI,API_KEY_OPENWEATHERMAP=$$API_KEY_OPENWEATHERMAP'
   secretEnv: [
     'PG_USER', 'PG_HOST', 'PG_DATABASE', 'PG_PASSWORD', 'API_KEY_OPENAI', 'API_KEY_OPENWEATHERMAP'
   ]
