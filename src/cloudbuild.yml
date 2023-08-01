@@ -50,3 +50,4 @@ availableSecrets:
       env: FLASK_RUN_PORT
     - versionName: projects/795308822384/secrets/FLASK_RUN_HOST/versions/latest
       env: FLASK_RUN_HOST
+
