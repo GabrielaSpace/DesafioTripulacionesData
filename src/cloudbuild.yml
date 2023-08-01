@@ -1,40 +1,36 @@
-steps:
-  # Configura el entorno
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['config', 'set', 'project', 'desafio-tripulaciones']
+# Configura el entorno
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['config', 'set', 'project', 'desafio-tripulaciones']
 
-  # Construye la imagen de la aplicación web (etiqueta latest)
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/desafio-tripulaciones/tripulaciones-data:latest', './src']
+# Construye la imagen de la aplicación web (etiqueta latest)
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/desafio-tripulaciones/tripulaciones-data:latest', './src']
 
-  # Sube la imagen al Container Registry (etiqueta latest)
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/desafio-tripulaciones/tripulaciones-data:latest']
+# Sube la imagen al Container Registry (etiqueta latest)
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/desafio-tripulaciones/tripulaciones-data:latest']
 
-  # Implementa la imagen en Cloud Run (etiqueta latest)
-  - name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: bash
-    args:
-      - '-c'
-      - |
-        gcloud run deploy tripulaciones-data \
-          --image=gcr.io/desafio-tripulaciones/tripulaciones-data:latest \
-          --region=europe-west1 \
-          --platform=managed \
-          --allow-unauthenticated \
-          --set-env-vars PG_USER=$$PG_USER,PG_HOST=$$PG_HOST,PG_DATABASE=$$PG_DATABASE,PG_PASSWORD=$$PG_PASSWORD,API_KEY_OPENAI=$$API_KEY_OPENAI,API_KEY_OPENWEATHERMAP=$$API_KEY_OPENWEATHERMAP,FLASK_RUN_PORT=$$FLASK_RUN_PORT,FLASK_RUN_HOST=$$FLASK_RUN_HOST
-    secretEnv:
-      - PG_USER
-      - PG_HOST
-      - PG_DATABASE
-      - PG_PASSWORD
-      - API_KEY_OPENAI
-      - API_KEY_OPENWEATHERMAP
-      - FLASK_RUN_PORT
-      - FLASK_RUN_HOST
-
+# Implementa la imagen en Cloud Run (etiqueta latest)
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: bash
+  args: [
+    "-c",
+    "gcloud run deploy tripulaciones-data
+      --image=gcr.io/desafio-tripulaciones/tripulaciones-data:latest
+      --region=europe-west1
+      --platform=managed
+      --allow-unauthenticated
+      --update-env-vars FLASK_RUN_PORT=5001,FLASK_RUN_HOST=0.0.0.0,API_KEY_OPENAI=$$API_KEY_OPENAI,API_KEY_OPENWEATHERMAP=$$API_KEY_OPENWEATHERMAP,PG_USER=$$PG_USER,PG_HOST=$$PG_HOST,PG_DATABASE=$$PG_DATABASE,PG_PASSWORD=$$PG_PASSWORD"
+  ]
+  secretEnv: [
+    'API_KEY_OPENAI', 'API_KEY_OPENWEATHERMAP', 'PG_USER', 'PG_HOST', 'PG_DATABASE', 'PG_PASSWORD'
+  ]
 availableSecrets:
   secretManager:
+    - versionName: projects/795308822384/secrets/API_KEY_OPENAI/versions/latest
+      env: API_KEY_OPENAI
+    - versionName: projects/795308822384/secrets/API_KEY_OPENWEATHERMAP/versions/latest
+      env: API_KEY_OPENWEATHERMAP
     - versionName: projects/795308822384/secrets/PG_USER/versions/latest
       env: PG_USER
     - versionName: projects/795308822384/secrets/PG_HOST/versions/latest
@@ -43,11 +39,3 @@ availableSecrets:
       env: PG_DATABASE
     - versionName: projects/795308822384/secrets/PG_PASSWORD/versions/latest
       env: PG_PASSWORD
-    - versionName: projects/795308822384/secrets/API_KEY_OPENAI/versions/latest
-      env: API_KEY_OPENAI
-    - versionName: projects/795308822384/secrets/API_KEY_OPENWEATHERMAP/versions/latest
-      env: API_KEY_OPENWEATHERMAP
-    - versionName: projects/795308822384/secrets/FLASK_RUN_PORT/versions/latest
-      env: FLASK_RUN_PORT
-    - versionName: projects/795308822384/secrets/FLASK_RUN_HOST/versions/latest
-      env: FLASK_RUN_HOST
