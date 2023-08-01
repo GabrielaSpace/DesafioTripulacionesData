@@ -13,21 +13,15 @@
 # Implementa la imagen en Cloud Run (etiqueta latest)
 - name: 'gcr.io/cloud-builders/gcloud'
   entrypoint: bash
-  args: [
-    "-c",
-    "gcloud run deploy tripulaciones-data
-      --image=gcr.io/desafio-tripulaciones/tripulaciones-data:latest
-      --region=europe-west1
-      --platform=managed
-      --allow-unauthenticated
-      --update-env-vars FLASK_RUN_PORT=5001,FLASK_RUN_HOST=0.0.0.0,
-      --update-env-vars API_KEY_OPENAI=$$API_KEY_OPENAI,
-      --update-env-vars API_KEY_OPENWEATHERMAP=$$API_KEY_OPENWEATHERMAP,
-      --update-env-vars PG_USER=$$PG_USER,
-      --update-env-vars PG_HOST=$$PG_HOST,
-      --update-env-vars PG_DATABASE=$$PG_DATABASE,
-      --update-env-vars PG_PASSWORD=$$PG_PASSWORD"
-  ]
+  args:
+  - "-c"
+  - |
+    gcloud run deploy tripulaciones-data
+    --image=gcr.io/desafio-tripulaciones/tripulaciones-data:latest
+    --region=europe-west1
+    --platform=managed
+    --allow-unauthenticated
+    --update-env-vars FLASK_RUN_PORT=5001,FLASK_RUN_HOST=0.0.0.0,API_KEY_OPENAI=$$API_KEY_OPENAI,API_KEY_OPENWEATHERMAP=$$API_KEY_OPENWEATHERMAP,PG_USER=$$PG_USER,PG_HOST=$$PG_HOST,PG_DATABASE=$$PG_DATABASE,PG_PASSWORD=$$PG_PASSWORD
   secretEnv: [
     'API_KEY_OPENAI', 'API_KEY_OPENWEATHERMAP', 'PG_USER', 'PG_HOST', 'PG_DATABASE', 'PG_PASSWORD'
   ]
