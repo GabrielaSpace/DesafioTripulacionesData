@@ -22,15 +22,9 @@
       --platform=managed \
       --allow-unauthenticated \
       --set-env-vars PG_USER=$$PG_USER,PG_HOST=$$PG_HOST,PG_DATABASE=$$PG_DATABASE,PG_PASSWORD=$$PG_PASSWORD,API_KEY_OPENAI=$$API_KEY_OPENAI,API_KEY_OPENWEATHERMAP=$$API_KEY_OPENWEATHERMAP
-  secretEnv:
-    - 'PG_USER'
-    - 'PG_HOST'
-    - 'PG_DATABASE'
-    - 'PG_PASSWORD'
-    - 'FLASK_RUN_PORT'
-    - 'FLASK_RUN_HOST'
-    - 'API_KEY_OPENAI'
-    - 'API_KEY_OPENWEATHERMAP'
+  secretEnv: [
+    'PG_USER', 'PG_HOST', 'PG_DATABASE', 'PG_PASSWORD', 'FLASK_RUN_PORT', 'FLASK_RUN_HOST', 'API_KEY_OPENAI', 'API_KEY_OPENWEATHERMAP'
+  ]
 availableSecrets:
   secretManager:
     - versionName: projects/795308822384/secrets/PG_USER/versions/latest
